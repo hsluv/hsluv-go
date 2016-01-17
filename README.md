@@ -6,24 +6,24 @@ More details about HUSL at http://www.husl-colors.org.
 
 # API
 
-**husl.HusltoHex(hue, saturation, lightness)**
+**husl.HuslToHex(hue, saturation, lightness)**
 
 *hue* is a number between 0 and 360, *saturation* and *lightness* are numbers between 0 and 100. This function returns the resulting color as a hex string.
 
-**husl.HusltoRGB(hue, saturation, lightness)**
+**husl.HuslToRGB(hue, saturation, lightness)**
 
 Like above, but returns 3 numbers between 0 and 1, for the r, g, and b channel.
 
-**husl.HuslfromHex(hex)**
+**husl.HuslFromHex(hex)**
 
 Takes a hex string and returns the HUSL color as 3 numbers for hue (0-360), saturation(0-100) and lightness(0-100).
 _Note_: The result can have rounding errors. For example saturation can be 100.00000000000007
 
-**husl.HuslfromRGB(red, green, blue)**
+**husl.HuslFromRGB(red, green, blue)**
 
 Like above, but *red*, *green* and *blue* are passed as numbers between 0 and 1.
 
-Use **HuslptoHex**, **HuslptoRGB**, **HuslpfromHex** and **HuslpfromRGB** for the pastel variant (HUSLp).
+Use **HuslpToHex**, **HuslpToRGB**, **HuslpFromHex** and **HuslpFromRGB** for the pastel variant (HUSLp).
 
 # Testing
 
