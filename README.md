@@ -16,7 +16,7 @@ Like above, but returns 3 numbers between 0 and 1, for the r, g, and b channel.
 
 **husl.HuslFromHex(hex)**
 
-Takes a hex string and returns the HUSL color as 3 numbers for hue (0-360), saturation(0-100) and lightness(0-100).
+Takes a hex string and returns the HUSL color as 3 numbers for hue (0-360), saturation (0-100) and lightness (0-100).
 _Note_: The result can have rounding errors. For example saturation can be 100.00000000000007
 
 **husl.HuslFromRGB(red, green, blue)**
