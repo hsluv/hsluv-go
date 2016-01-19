@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gmgeo/husl-go.svg?branch=master)](https://travis-ci.org/gmgeo/husl-go)
+[![Build Status](https://travis-ci.org/husl-colors/husl-go.svg?branch=master)](https://travis-ci.org/husl-colors/husl-go)
 
 Go port of HUSL (revision 4), written by [Michael Glanznig](https://github.com/nebulon42)
 
