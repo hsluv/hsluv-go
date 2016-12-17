@@ -1,4 +1,4 @@
-package husl
+package hsluv
 
 import (
     "fmt"
@@ -7,36 +7,36 @@ import (
     "strings"
 )
 
-func HuslToHex(h, s, l float64) (string) {
-    return convRgbHex(convHuslRgb(h, s, l))
+func HsluvToHex(h, s, l float64) (string) {
+    return convRgbHex(convHsluvRgb(h, s, l))
 }
 
-func HuslToRGB(h, s, l float64) (float64, float64, float64) {
-    return convHuslRgb(h, s, l)
+func HsluvToRGB(h, s, l float64) (float64, float64, float64) {
+    return convHsluvRgb(h, s, l)
 }
 
-func HuslFromHex(hex string) (float64, float64, float64) {
-    return convRgbHusl(convHexRgb(hex))
+func HsluvFromHex(hex string) (float64, float64, float64) {
+    return convRgbHsluv(convHexRgb(hex))
 }
 
-func HuslFromRGB(r, g, b float64) (float64, float64, float64) {
-    return convRgbHusl(r, g, b)
+func HsluvFromRGB(r, g, b float64) (float64, float64, float64) {
+    return convRgbHsluv(r, g, b)
 }
 
-func HuslpToHex(h, s, l float64) (string) {
-    return convRgbHex(convXyzRgb(convLuvXyz(convLchLuv(convHuslpLch(h, s, l)))))
+func HpluvToHex(h, s, l float64) (string) {
+    return convRgbHex(convXyzRgb(convLuvXyz(convLchLuv(convHpluvLch(h, s, l)))))
 }
 
-func HuslpToRGB(h, s, l float64) (float64, float64, float64) {
-    return convXyzRgb(convLuvXyz(convLchLuv(convHuslpLch(h, s, l))))
+func HpluvToRGB(h, s, l float64) (float64, float64, float64) {
+    return convXyzRgb(convLuvXyz(convLchLuv(convHpluvLch(h, s, l))))
 }
 
-func HuslpFromHex(hex string) (float64, float64, float64) {
-    return convLchHuslp(convLuvLch(convXyzLuv(convRgbXyz(convHexRgb(hex)))))
+func HpluvFromHex(hex string) (float64, float64, float64) {
+    return convLchHpluv(convLuvLch(convXyzLuv(convRgbXyz(convHexRgb(hex)))))
 }
 
-func HuslpFromRGB(r, g, b float64) (float64, float64, float64) {
-    return convLchHuslp(convLuvLch(convXyzLuv(convRgbXyz(r, g, b))))
+func HpluvFromRGB(r, g, b float64) (float64, float64, float64) {
+    return convLchHpluv(convLuvLch(convXyzLuv(convRgbXyz(r, g, b))))
 }
 
 var m = [3][3]float64 {
@@ -64,12 +64,12 @@ func convRgbLch(r, g, b float64) (float64, float64, float64) {
     return convLuvLch(convXyzLuv(convRgbXyz(r, g, b)))
 }
 
-func convHuslRgb(h, s, l float64) (float64, float64, float64) {
-    return convLchRgb(convHuslLch(h, s, l))
+func convHsluvRgb(h, s, l float64) (float64, float64, float64) {
+    return convLchRgb(convHsluvLch(h, s, l))
 }
 
-func convRgbHusl(r, g, b float64) (float64, float64, float64) {
-    return convLchHusl(convRgbLch(r, g, b))
+func convRgbHsluv(r, g, b float64) (float64, float64, float64) {
+    return convLchHsluv(convRgbLch(r, g, b))
 }
 
 func convXyzLuv(x, y, z float64) (float64, float64, float64) {
@@ -118,7 +118,7 @@ func convLchLuv(l, c, h float64) (float64, float64, float64) {
     return l, u, v
 };
 
-func convHuslLch(h, s, l float64) (float64, float64, float64) {
+func convHsluvLch(h, s, l float64) (float64, float64, float64) {
     var c, max float64
     if l > 99.9999999 || l < 0.00000001 {
         c = 0.0
@@ -129,7 +129,7 @@ func convHuslLch(h, s, l float64) (float64, float64, float64) {
     return l, c, h
 }
 
-func convLchHusl(l, c, h float64) (float64, float64, float64) {
+func convLchHsluv(l, c, h float64) (float64, float64, float64) {
     var s, max float64
     if l > 99.9999999 || l < 0.00000001 {
         s = 0.0
@@ -140,7 +140,7 @@ func convLchHusl(l, c, h float64) (float64, float64, float64) {
     return h, s, l
 }
 
-func convHuslpLch(h, s, l float64) (float64, float64, float64) {
+func convHpluvLch(h, s, l float64) (float64, float64, float64) {
     var c, max float64
     if l > 99.9999999 || l < 0.00000001 {
         c = 0.0
@@ -151,7 +151,7 @@ func convHuslpLch(h, s, l float64) (float64, float64, float64) {
     return l, c, h
 }
 
-func convLchHuslp(l, c, h float64) (float64, float64, float64) {
+func convLchHpluv(l, c, h float64) (float64, float64, float64) {
     var s, max float64
     if l > 99.9999999 || l < 0.00000001 {
         s = 0.0

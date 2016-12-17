@@ -1,4 +1,4 @@
-package husl
+package hsluv
 
 import (
     "encoding/json"
@@ -15,8 +15,8 @@ type values struct {
     Xyz [3]float64
     Luv [3]float64
     Lch [3]float64
-    Husl [3]float64
-    Huslp [3]float64
+    Hsluv [3]float64
+    Hpluv [3]float64
 }
 
 func pack(a, b, c float64) [3]float64 {
@@ -27,18 +27,18 @@ func unpack(tuple [3]float64) (float64, float64, float64) {
 	return tuple[0], tuple[1], tuple[2]
 }
 
-const delta = 0.00000000001
+const delta = 0.00000001
 
 func compareTuple(t *testing.T, result, expected [3]float64, method string, hex string) {
-    var error bool
+    var err bool
     var errs [3]bool
     for i := 0; i < 3; i++ {
         if math.Abs(result[i] - expected[i]) > delta {
-            error = true
+            err = true
             errs[i] = true
         }
     }
-    if error {
+    if err {
         resultOutput := "["
         for i := 0; i < 3; i++ {
             resultOutput += fmt.Sprintf("%f", result[i])
@@ -79,14 +79,14 @@ func TestSnapshot(t *testing.T) {
             t.Logf("Testing public methods for test case %s", hex)
         }
 
-        compareHex(t, HuslToHex(unpack(colorValues.Husl)), hex, "HuslToHex", hex)
-        compareTuple(t, pack(HuslToRGB(unpack(colorValues.Husl))), colorValues.Rgb, "HuslToRGB", hex)
-        compareTuple(t, pack(HuslFromHex(hex)), colorValues.Husl, "HuslFromHex", hex)
-        compareTuple(t, pack(HuslFromRGB(unpack(colorValues.Rgb))), colorValues.Husl, "HuslFromRGB", hex)
-        compareHex(t, HuslpToHex(unpack(colorValues.Huslp)), hex, "HuslpToHex", hex)
-        compareTuple(t, pack(HuslpToRGB(unpack(colorValues.Huslp))), colorValues.Rgb, "HuslpToRGB", hex)
-        compareTuple(t, pack(HuslpFromHex(hex)), colorValues.Huslp, "HuslpFromHex", hex)
-        compareTuple(t, pack(HuslpFromRGB(unpack(colorValues.Rgb))), colorValues.Huslp, "HuslpFromRGB", hex)
+        compareHex(t, HsluvToHex(unpack(colorValues.Hsluv)), hex, "HsluvToHex", hex)
+        compareTuple(t, pack(HsluvToRGB(unpack(colorValues.Hsluv))), colorValues.Rgb, "HsluvToRGB", hex)
+        compareTuple(t, pack(HsluvFromHex(hex)), colorValues.Hsluv, "HsluvFromHex", hex)
+        compareTuple(t, pack(HsluvFromRGB(unpack(colorValues.Rgb))), colorValues.Hsluv, "HsluvFromRGB", hex)
+        compareHex(t, HpluvToHex(unpack(colorValues.Hpluv)), hex, "HpluvToHex", hex)
+        compareTuple(t, pack(HpluvToRGB(unpack(colorValues.Hpluv))), colorValues.Rgb, "HpluvToRGB", hex)
+        compareTuple(t, pack(HpluvFromHex(hex)), colorValues.Hpluv, "HpluvFromHex", hex)
+        compareTuple(t, pack(HpluvFromRGB(unpack(colorValues.Rgb))), colorValues.Hpluv, "HpluvFromRGB", hex)
 
         if !testing.Short() {
             // internal tests
@@ -100,10 +100,10 @@ func TestSnapshot(t *testing.T) {
             compareTuple(t, pack(convLuvXyz(unpack(colorValues.Luv))), colorValues.Xyz, "convLuvXyz", hex)
             compareTuple(t, pack(convLuvLch(unpack(colorValues.Luv))), colorValues.Lch, "convLuvLch", hex)
             compareTuple(t, pack(convLchLuv(unpack(colorValues.Lch))), colorValues.Luv, "convLchLuv", hex)
-            compareTuple(t, pack(convHuslLch(unpack(colorValues.Husl))), colorValues.Lch, "convHuslLch", hex)
-            compareTuple(t, pack(convLchHusl(unpack(colorValues.Lch))), colorValues.Husl, "convLchHusl", hex)
-            compareTuple(t, pack(convHuslpLch(unpack(colorValues.Huslp))), colorValues.Lch, "convHuslpLch", hex)
-            compareTuple(t, pack(convLchHuslp(unpack(colorValues.Lch))), colorValues.Huslp, "convLchHuslp", hex)
+            compareTuple(t, pack(convHsluvLch(unpack(colorValues.Hsluv))), colorValues.Lch, "convHsluvLch", hex)
+            compareTuple(t, pack(convLchHsluv(unpack(colorValues.Lch))), colorValues.Hsluv, "convLchHsluv", hex)
+            compareTuple(t, pack(convHpluvLch(unpack(colorValues.Hpluv))), colorValues.Lch, "convHpluvLch", hex)
+            compareTuple(t, pack(convLchHpluv(unpack(colorValues.Lch))), colorValues.Hpluv, "convLchHpluv", hex)
             compareHex(t, convRgbHex(unpack(colorValues.Rgb)), hex, "convRgbHex", hex)
             compareTuple(t, pack(convHexRgb(hex)), colorValues.Rgb, "convHexRgb", hex)
             compareTuple(t, pack(convXyzRgb(unpack(colorValues.Xyz))), colorValues.Rgb, "convXyzRgb", hex)
