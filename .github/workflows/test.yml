@@ -1,0 +1,13 @@
+name: Compile and test
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Compile and test
+        run: go test

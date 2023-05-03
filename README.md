@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/hsluv/hsluv-go.svg?branch=master)](https://travis-ci.org/hsluv/hsluv-go)
+[![Build Status](https://github.com/hsluv/hsluv-go/actions/workflows/test.yml/badge.svg)](https://github.com/hsluv/hsluv-go/actions/workflows/test.yml)
 
 Go port of HSLuv (revision 4), written by [Michael Glanznig](https://github.com/nebulon42)
 
